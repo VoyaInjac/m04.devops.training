@@ -1,0 +1,19 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: s1-ubuntu
+
+blocks:
+  - name: Docker build
+    task:
+      secrets:
+        - name: docker-credentials
+      jobs:
+        - name: Docker build
+          commands:
+            - cd 7-pipeline
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            - docker build --cache-from $DOCKER_USERNAME/myapp:latest -t $DOCKER_USERNAME/myapp:$SEMAPHORE_GIT_SHA -t $DOCKER_USERNAME/myapp:latest .
+            - docker push $DOCKER_USERNAME/myapp:$SEMAPHORE_GIT_SHA
+            - docker push $DOCKER_USERNAME/myapp:latest
