@@ -8,7 +8,7 @@ blocks:
   - name: Docker build
     task:
       secrets:
-        - name: docker-credentials
+        - name: DOCKER_vinjac
       jobs:
         - name: Docker build
           commands:
