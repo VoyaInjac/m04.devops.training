@@ -17,3 +17,10 @@ blocks:
             - 'docker build --cache-from $DOCKER_USERNAME/myapp:latest -t $DOCKER_USERNAME/myapp:$SEMAPHORE_GIT_SHA -t $DOCKER_USERNAME/myapp:latest .'
             - 'docker push $DOCKER_USERNAME/myapp:$SEMAPHORE_GIT_SHA'
             - 'docker push $DOCKER_USERNAME/myapp:latest'
+      agent:
+        machine:
+          type: f1-standard-2
+          os_image: ubuntu2004
+        containers:
+          - name: main
+            image: 'semaphoreci/ubuntu:20.04'
