@@ -3,7 +3,7 @@ name: Initial Pipeline
 agent:
   machine:
     type: s1-ubuntu
-
+    os_image: ''
 blocks:
   - name: Docker build
     task:
@@ -14,6 +14,6 @@ blocks:
           commands:
             - cd 7-pipeline
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            - docker build --cache-from $DOCKER_USERNAME/myapp:latest -t $DOCKER_USERNAME/myapp:$SEMAPHORE_GIT_SHA -t $DOCKER_USERNAME/myapp:latest .
-            - docker push $DOCKER_USERNAME/myapp:$SEMAPHORE_GIT_SHA
-            - docker push $DOCKER_USERNAME/myapp:latest
+            - 'docker build --cache-from $DOCKER_USERNAME/myapp:latest -t $DOCKER_USERNAME/myapp:$SEMAPHORE_GIT_SHA -t $DOCKER_USERNAME/myapp:latest .'
+            - 'docker push $DOCKER_USERNAME/myapp:$SEMAPHORE_GIT_SHA'
+            - 'docker push $DOCKER_USERNAME/myapp:latest'
